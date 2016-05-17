@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SQL DB App</string>
     <string name="exitTitle">Exit</string>
+    <string name="initializeDBTitle">Initialize DB</string>
 </resources>

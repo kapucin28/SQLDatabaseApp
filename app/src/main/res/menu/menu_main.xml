@@ -10,4 +10,10 @@
         android:title="@string/exitTitle"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/create_database"
+        android:orderInCategory="101"
+        android:title="@string/initializeDBTitle"
+        app:showAsAction="never" />
+
 </menu>
