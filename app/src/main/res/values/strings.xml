@@ -2,4 +2,9 @@
     <string name="app_name">SQL DB App</string>
     <string name="exitTitle">Exit</string>
     <string name="initializeDBTitle">Initialize DB</string>
+    <string name="deleteDBTitle">Delete DB</string>
+    <string name="clearDBTitle">Clear DB</string>
+    <string name="displayDBTitle">Display DB Content</string>
+    <string name="addPersonTitle">Add person</string>
+    <string name="removePersonTitle">Remove person</string>
 </resources>

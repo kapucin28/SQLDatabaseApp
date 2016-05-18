@@ -16,4 +16,34 @@
         android:title="@string/initializeDBTitle"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/delete_database"
+        android:orderInCategory="102"
+        android:title="@string/deleteDBTitle"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/clear_DB"
+        android:orderInCategory="103"
+        android:title="@string/clearDBTitle"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/display_DB"
+        android:orderInCategory="104"
+        android:title="@string/displayDBTitle"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/add_person"
+        android:orderInCategory="105"
+        android:title="@string/addPersonTitle"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/remove_person"
+        android:orderInCategory="106"
+        android:title="@string/removePersonTitle"
+        app:showAsAction="never" />
+
 </menu>
