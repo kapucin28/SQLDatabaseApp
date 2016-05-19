@@ -23,15 +23,15 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/clear_DB"
-        android:orderInCategory="103"
-        android:title="@string/clearDBTitle"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/display_DB"
         android:orderInCategory="104"
         android:title="@string/displayDBTitle"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/clear_DB"
+        android:orderInCategory="103"
+        android:title="@string/clearDBTitle"
         app:showAsAction="never" />
 
     <item
