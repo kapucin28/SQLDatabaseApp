@@ -7,4 +7,9 @@
     <string name="displayDBTitle">Display DB Content</string>
     <string name="addPersonTitle">Add person</string>
     <string name="removePersonTitle">Remove person</string>
+    <string name="enter_name_hint">Enter Name</string>
+    <string name="enter_email_hint">Enter Email</string>
+    <string name="enter_phone_number_hint">Enter Phone Number</string>
+    <string name="db_details_hint">DB Details</string>
+    <string name="enter_id_hint">Enter ID</string>
 </resources>
