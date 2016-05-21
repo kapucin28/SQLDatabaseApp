@@ -1,11 +1,24 @@
 package com.kapucin28.sqldbapp;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
+
+    // SQL variables--------------------------------------------------------------------------------
+    private Cursor cursor;
+    private SQLiteDatabase sqLiteDatabase = null;
+    private String databaseName = "SQL DB";
+    private String name, email, phone, id, personsList;
+    private int nameColumn, emailColumn, phoneColumn, idColumn;
+    private File file;
+    //----------------------------------------------------------------------------------------------
 
     // OnCreate method------------------------------------------------------------------------------
     @Override

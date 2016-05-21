@@ -6,7 +6,7 @@
     tools:context="com.kapucin28.sqldbapp.MainActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/person_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,42 +18,42 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/person_name_edit_text"
         android:ems="10"
         android:hint="@string/enter_email_hint"
         android:inputType="textEmailAddress"
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/phone_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/email_edit_text"
         android:ems="10"
         android:hint="@string/enter_phone_number_hint"
         android:inputType="phone"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/DB_details_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText4"
+        android:layout_above="@+id/ID_edit_text"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editText3"
+        android:layout_below="@+id/phone_edit_text"
         android:hint="@string/db_details_hint"
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/ID_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
