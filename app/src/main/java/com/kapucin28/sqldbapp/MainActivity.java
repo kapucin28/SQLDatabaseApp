@@ -34,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView textDB;
     //----------------------------------------------------------------------------------------------
 
+    // MenuItems state variables--------------------------------------------------------------------
+    private boolean createMenuItem = true;
+    private boolean deleteMenuItem = false;
+    private boolean clearMenuItem = false;
+    private boolean displayMenuItem = false;
+    private boolean addMenuItem = false;
+    private boolean removeMenuItem = false;
+    //----------------------------------------------------------------------------------------------
+
     // OnCreate method------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
