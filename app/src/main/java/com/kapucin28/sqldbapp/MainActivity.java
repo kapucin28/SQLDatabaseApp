@@ -6,8 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +22,16 @@ public class MainActivity extends AppCompatActivity {
     private String name, email, phone, id, personsList;
     private int nameColumn, emailColumn, phoneColumn, idColumn;
     private File file;
+    //----------------------------------------------------------------------------------------------
+
+    // Database variables---------------------------------------------------------------------------
+    private List<String> list = new ArrayList<>();
+    private String personName, personEmail, personPhone, personID;
+    //----------------------------------------------------------------------------------------------
+
+    // TextViews variables--------------------------------------------------------------------------
+    private EditText textName, textEmail, textPhone, textID;
+    private TextView textDB;
     //----------------------------------------------------------------------------------------------
 
     // OnCreate method------------------------------------------------------------------------------
@@ -43,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.exit_app:
                 finish();
-                break;
             case R.id.create_database:
                 break;
             case R.id.delete_database:
