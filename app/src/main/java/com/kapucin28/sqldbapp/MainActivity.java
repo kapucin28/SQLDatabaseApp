@@ -51,6 +51,19 @@ public class MainActivity extends AppCompatActivity {
     }
     //----------------------------------------------------------------------------------------------
 
+    // MenuItems initial status method--------------------------------------------------------------
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.getItem(1).setEnabled(createMenuItem);
+        menu.getItem(2).setEnabled(deleteMenuItem);
+        menu.getItem(3).setEnabled(clearMenuItem);
+        menu.getItem(4).setEnabled(displayMenuItem);
+        menu.getItem(5).setEnabled(addMenuItem);
+        menu.getItem(6).setEnabled(removeMenuItem);
+        return super.onPrepareOptionsMenu(menu);
+    }
+    //----------------------------------------------------------------------------------------------
+
     // Creating menu method-------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
