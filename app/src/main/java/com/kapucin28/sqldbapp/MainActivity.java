@@ -48,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        textName = (EditText) findViewById(R.id.person_name_edit_text);
+        textEmail = (EditText) findViewById(R.id.email_edit_text);
+        textPhone = (EditText) findViewById(R.id.phone_edit_text);
+        textID = (EditText) findViewById(R.id.ID_edit_text);
+        textDB = (TextView) findViewById(R.id.display_DB);
     }
     //----------------------------------------------------------------------------------------------
 
