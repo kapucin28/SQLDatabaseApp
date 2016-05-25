@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.exit_app:
                 finish();
             case R.id.create_database:
+                createDB();
                 break;
             case R.id.delete_database:
                 break;
@@ -99,6 +101,32 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+    //----------------------------------------------------------------------------------------------
+
+    // Creating database method---------------------------------------------------------------------
+    private void createDB() {
+
+        // Creating SQL DB--------------------------------------------------------------------------
+        file = getApplicationContext().getDatabasePath(databaseName);
+        if (!file.exists()) {
+            sqLiteDatabase = this.openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS persons " +
+                    "(id integer primary key, name VARCHAR, email VARCHAR, phone long);");
+            Toast.makeText(this, "Database Created", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Database Already Exists", Toast.LENGTH_SHORT).show();
+        }
+        //------------------------------------------------------------------------------------------
+
+        // Updating menu status---------------------------------------------------------------------
+        createMenuItem = false;
+        deleteMenuItem = true;
+        clearMenuItem = true;
+        displayMenuItem = true;
+        addMenuItem = true;
+        removeMenuItem = true;
+        //------------------------------------------------------------------------------------------
     }
     //----------------------------------------------------------------------------------------------
 }
