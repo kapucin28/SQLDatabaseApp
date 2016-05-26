@@ -71,6 +71,18 @@ public class MainActivity extends AppCompatActivity {
     }
     //----------------------------------------------------------------------------------------------
 
+    // Menu status method---------------------------------------------------------------------------
+    private void menuStatus(boolean createMenuItem, boolean deleteMenuItem, boolean clearMenuItem,
+                            boolean displayMenuItem, boolean addMenuItem, boolean removeMenuItem) {
+        this.createMenuItem = createMenuItem;
+        this.deleteMenuItem = deleteMenuItem;
+        this.clearMenuItem = clearMenuItem;
+        this.displayMenuItem = displayMenuItem;
+        this.addMenuItem = addMenuItem;
+        this.removeMenuItem = removeMenuItem;
+    }
+    //----------------------------------------------------------------------------------------------
+
     // Creating menu method-------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 createDB();
                 break;
             case R.id.delete_database:
+                deleteDB();
                 break;
             case R.id.display_DB:
                 break;
@@ -111,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
         file = getApplicationContext().getDatabasePath(databaseName);
         if (!file.exists()) {
             sqLiteDatabase = this.openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS persons " +
-                    "(id integer primary key, name VARCHAR, email VARCHAR, phone long);");
+            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + databaseName +
+                    " (id integer primary key, name VARCHAR, email VARCHAR, phone long);");
             Toast.makeText(this, "Database Created", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Database Already Exists", Toast.LENGTH_SHORT).show();
@@ -120,12 +133,27 @@ public class MainActivity extends AppCompatActivity {
         //------------------------------------------------------------------------------------------
 
         // Updating menu status---------------------------------------------------------------------
-        createMenuItem = false;
-        deleteMenuItem = true;
-        clearMenuItem = true;
-        displayMenuItem = true;
-        addMenuItem = true;
-        removeMenuItem = true;
+        menuStatus(false, true, true, true, true, true);
+        //------------------------------------------------------------------------------------------
+    }
+    //----------------------------------------------------------------------------------------------
+
+    // Delete database method-----------------------------------------------------------------------
+    private void deleteDB() {
+
+        // Deleting SQL DB--------------------------------------------------------------------------
+        for (int i = 0; i < list.size() + 1000; i++) {
+            personID = String.valueOf(i);
+            sqLiteDatabase.execSQL("DELETE FROM " + databaseName + " WHERE id= " + personID + ";");
+        }
+        this.deleteDatabase(databaseName);
+        list.clear();
+        textDB.setText("");
+        Toast.makeText(this, "DB Deleted", Toast.LENGTH_SHORT).show();
+        //------------------------------------------------------------------------------------------
+
+        // Updating menu status---------------------------------------------------------------------
+        menuStatus(true, false, false, false, false, false);
         //------------------------------------------------------------------------------------------
     }
     //----------------------------------------------------------------------------------------------
