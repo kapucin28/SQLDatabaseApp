@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Cursor cursor;
     private SQLiteDatabase sqLiteDatabase = null;
     private String databaseName = "SQL DB";
+    private String tableName = "sql";
     private String name, email, phone, id, personsList;
     private int nameColumn, emailColumn, phoneColumn, idColumn;
     private File file;
@@ -104,9 +105,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.delete_database:
                 deleteDB();
                 break;
-            case R.id.display_DB:
-                break;
             case R.id.clear_DB:
+                clearDB();
+                break;
+            case R.id.display_DB:
                 break;
             case R.id.add_person:
                 break;
@@ -121,15 +123,10 @@ public class MainActivity extends AppCompatActivity {
     private void createDB() {
 
         // Creating SQL DB--------------------------------------------------------------------------
-        file = getApplicationContext().getDatabasePath(databaseName);
-        if (!file.exists()) {
-            sqLiteDatabase = this.openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-            sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + databaseName +
-                    " (id integer primary key, name VARCHAR, email VARCHAR, phone long);");
-            Toast.makeText(this, "Database Created", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Database Already Exists", Toast.LENGTH_SHORT).show();
-        }
+        sqLiteDatabase = this.openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + tableName +
+                " (id integer primary key, name VARCHAR, email VARCHAR, phone long);");
+        Toast.makeText(this, "Database Created", Toast.LENGTH_SHORT).show();
         //------------------------------------------------------------------------------------------
 
         // Updating menu status---------------------------------------------------------------------
@@ -144,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         // Deleting SQL DB--------------------------------------------------------------------------
         for (int i = 0; i < list.size() + 1000; i++) {
             personID = String.valueOf(i);
-            sqLiteDatabase.execSQL("DELETE FROM " + databaseName + " WHERE id= " + personID + ";");
+            sqLiteDatabase.execSQL("DELETE FROM " + tableName + " WHERE id= " + personID + ";");
         }
         this.deleteDatabase(databaseName);
         list.clear();
@@ -155,6 +152,22 @@ public class MainActivity extends AppCompatActivity {
         // Updating menu status---------------------------------------------------------------------
         menuStatus(true, false, false, false, false, false);
         //------------------------------------------------------------------------------------------
+    }
+    //----------------------------------------------------------------------------------------------
+
+    // Clear database method------------------------------------------------------------------------
+    private void clearDB() {
+        if (!list.isEmpty()) {
+            list.clear();
+            for (int i = 0; i < list.size() + 1000; i++) {
+                personID = String.valueOf(i);
+                sqLiteDatabase.execSQL("DELETE FROM " + tableName + " WHERE id = " + personID + ";");
+            }
+            textDB.setText("");
+            Toast.makeText(this, "DB Cleared", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "DB Already Empty", Toast.LENGTH_SHORT).show();
+        }
     }
     //----------------------------------------------------------------------------------------------
 }
