@@ -59,6 +59,19 @@ public class MainActivity extends AppCompatActivity {
     }
     //----------------------------------------------------------------------------------------------
 
+    // Saving state method--------------------------------------------------------------------------
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("createMenuItem", createMenuItem);
+        outState.putBoolean("deleteMenuItem", deleteMenuItem);
+        outState.putBoolean("clearMenuItem", clearMenuItem);
+        outState.putBoolean("displayMenuItem", displayMenuItem);
+        outState.putBoolean("addMenuItem", addMenuItem);
+        outState.putBoolean("removeMenuItem", removeMenuItem);
+    }
+    //----------------------------------------------------------------------------------------------
+
     // MenuItems initial status method--------------------------------------------------------------
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
