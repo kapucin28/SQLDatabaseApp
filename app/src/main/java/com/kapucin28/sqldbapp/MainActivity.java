@@ -72,6 +72,19 @@ public class MainActivity extends AppCompatActivity {
     }
     //----------------------------------------------------------------------------------------------
 
+    // Restoring state method-----------------------------------------------------------------------
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        createMenuItem = savedInstanceState.getBoolean("createMenuItem");
+        deleteMenuItem = savedInstanceState.getBoolean("deleteMenuItem");
+        clearMenuItem = savedInstanceState.getBoolean("clearMenuItem");
+        displayMenuItem = savedInstanceState.getBoolean("displayMenuItem");
+        addMenuItem = savedInstanceState.getBoolean("addMenuItem");
+        removeMenuItem = savedInstanceState.getBoolean("removeMenuItem");
+    }
+    //----------------------------------------------------------------------------------------------
+
     // MenuItems initial status method--------------------------------------------------------------
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
