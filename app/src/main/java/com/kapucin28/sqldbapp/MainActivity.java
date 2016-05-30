@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase sqLiteDatabase = null;
     private String databaseName = "SQL DB";
     private String tableName = "sql";
-    private String name, email, phone, id, personsList;
+    private String name, email, phone, id, personsDetails;
     private int nameColumn, emailColumn, phoneColumn, idColumn;
     private File file;
     //----------------------------------------------------------------------------------------------
@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         textPhone = (EditText) findViewById(R.id.phone_edit_text);
         textID = (EditText) findViewById(R.id.ID_edit_text);
         textDB = (TextView) findViewById(R.id.display_DB);
+
+        createDBStartup();
+        displayStartup();
     }
     //----------------------------------------------------------------------------------------------
 
@@ -135,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 clearDB();
                 break;
             case R.id.display_DB:
+                displayDB();
                 break;
             case R.id.add_person:
                 break;
@@ -145,19 +149,25 @@ public class MainActivity extends AppCompatActivity {
     }
     //----------------------------------------------------------------------------------------------
 
-    // Creating database method---------------------------------------------------------------------
-    private void createDB() {
+    // Creating / opening database at startup method------------------------------------------------
+    private void createDBStartup() {
 
         // Creating SQL DB--------------------------------------------------------------------------
         sqLiteDatabase = this.openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + tableName +
                 " (id integer primary key, name VARCHAR, email VARCHAR, phone long);");
-        Toast.makeText(this, "Database Created", Toast.LENGTH_SHORT).show();
         //------------------------------------------------------------------------------------------
 
         // Updating menu status---------------------------------------------------------------------
         menuStatus(false, true, true, true, true, true);
         //------------------------------------------------------------------------------------------
+    }
+    //----------------------------------------------------------------------------------------------
+
+    // Creating database method---------------------------------------------------------------------
+    private void createDB() {
+        createDBStartup();
+        Toast.makeText(this, "Database Created", Toast.LENGTH_SHORT).show();
     }
     //----------------------------------------------------------------------------------------------
 
@@ -194,6 +204,53 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "DB Already Empty", Toast.LENGTH_SHORT).show();
         }
+    }
+    //----------------------------------------------------------------------------------------------
+
+    // Display database at startup method-----------------------------------------------------------
+    private void displayStartup() {
+        // Refresh textView-------------------------------------------------------------------------
+        textDB.setText("");
+        //------------------------------------------------------------------------------------------
+
+        // Selecting items from database------------------------------------------------------------
+        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + tableName, null);
+        idColumn = cursor.getColumnIndex("id");
+        nameColumn = cursor.getColumnIndex("name");
+        emailColumn = cursor.getColumnIndex("email");
+        phoneColumn = cursor.getColumnIndex("phone");
+        cursor.moveToFirst();
+
+        if (cursor.getCount() > 0) {
+            do {
+                id = cursor.getString(idColumn);
+                name = cursor.getString(nameColumn);
+                email = cursor.getString(emailColumn);
+                phone = cursor.getString(phoneColumn);
+
+                personsDetails = id + ". Name: " + "\n" + "     Email: " + email + "\n" + "     Phone: " +
+                        phone + "\n" + "\n";
+                list.add(personsDetails);
+            } while (cursor.moveToNext());
+        } else {
+            Toast.makeText(this, "Add Persons To DB", Toast.LENGTH_SHORT).show();
+            textDB.setText("");
+        }
+        //------------------------------------------------------------------------------------------
+
+        // Displaying items from list---------------------------------------------------------------
+        for (String person : list) {
+            textDB.append(person);
+        }
+        cursor.close();
+        //------------------------------------------------------------------------------------------
+    }
+    //----------------------------------------------------------------------------------------------
+
+    // Display database content method--------------------------------------------------------------
+    private void displayDB(){
+        list.clear();
+        displayStartup();
     }
     //----------------------------------------------------------------------------------------------
 }
