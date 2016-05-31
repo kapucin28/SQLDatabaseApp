@@ -2,15 +2,15 @@ package com.kapucin28.sqldbapp;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private String tableName = "sql";
     private String name, email, phone, id, personsDetails;
     private int nameColumn, emailColumn, phoneColumn, idColumn;
-    private File file;
     //----------------------------------------------------------------------------------------------
 
     // Database variables---------------------------------------------------------------------------
@@ -141,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 displayDB();
                 break;
             case R.id.add_person:
+                addPerson();
                 break;
             case R.id.remove_person:
                 break;
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
                 email = cursor.getString(emailColumn);
                 phone = cursor.getString(phoneColumn);
 
-                personsDetails = id + ". Name: " + "\n" + "     Email: " + email + "\n" + "     Phone: " +
+                personsDetails = id + ". Name: " + name + "\n" + "     Email: " + email + "\n" + "     Phone: " +
                         phone + "\n" + "\n";
                 list.add(personsDetails);
             } while (cursor.moveToNext());
@@ -248,9 +248,29 @@ public class MainActivity extends AppCompatActivity {
     //----------------------------------------------------------------------------------------------
 
     // Display database content method--------------------------------------------------------------
-    private void displayDB(){
+    private void displayDB() {
         list.clear();
         displayStartup();
+    }
+    //----------------------------------------------------------------------------------------------
+
+    // Adding person to DB method-------------------------------------------------------------------
+    private void addPerson() {
+        if (!TextUtils.isEmpty(textName.getText()) && !TextUtils.isEmpty(textEmail.getText())
+                && !TextUtils.isEmpty(textPhone.getText())) {
+            personName = textName.getText().toString();
+            personEmail = textEmail.getText().toString();
+            personPhone = textPhone.getText().toString();
+            sqLiteDatabase.execSQL("INSERT INTO " + tableName + " (name, email, phone) VALUES ('" + personName + "', '" +
+                    personEmail + "', '" + personPhone + "');");
+            textName.getText().clear();
+            textEmail.getText().clear();
+            textPhone.getText().clear();
+            Toast.makeText(this, "Person Added", Toast.LENGTH_SHORT).show();
+            displayDB();
+        } else {
+            Toast.makeText(this, "Enter All Details", Toast.LENGTH_SHORT).show();
+        }
     }
     //----------------------------------------------------------------------------------------------
 }
