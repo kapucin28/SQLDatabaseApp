@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         textEmail = (EditText) findViewById(R.id.email_edit_text);
         textPhone = (EditText) findViewById(R.id.phone_edit_text);
         textID = (EditText) findViewById(R.id.ID_edit_text);
-        textDB = (TextView) findViewById(R.id.display_DB);
+        textDB = (TextView) findViewById(R.id.DB_details_text_view);
 
         createDBStartup();
         displayStartup();
@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 addPerson();
                 break;
             case R.id.remove_person:
+                removePerson();
                 break;
         }
         return true;
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     private void deleteDB() {
 
         // Deleting SQL DB--------------------------------------------------------------------------
-        for (int i = 0; i < list.size() + 1000; i++) {
+        for (int i = 0; i < list.size(); i++) {
             personID = String.valueOf(i);
             sqLiteDatabase.execSQL("DELETE FROM " + tableName + " WHERE id= " + personID + ";");
         }
@@ -195,10 +196,13 @@ public class MainActivity extends AppCompatActivity {
     private void clearDB() {
         if (!list.isEmpty()) {
             list.clear();
-            for (int i = 0; i < list.size() + 1000; i++) {
+            for (int i = 0; i < list.size(); i++) {
                 personID = String.valueOf(i);
                 sqLiteDatabase.execSQL("DELETE FROM " + tableName + " WHERE id = " + personID + ";");
             }
+            this.deleteDatabase(databaseName);
+            createDBStartup();
+            displayStartup();
             textDB.setText("");
             Toast.makeText(this, "DB Cleared", Toast.LENGTH_SHORT).show();
         } else {
@@ -270,6 +274,20 @@ public class MainActivity extends AppCompatActivity {
             displayDB();
         } else {
             Toast.makeText(this, "Enter All Details", Toast.LENGTH_SHORT).show();
+        }
+    }
+    //----------------------------------------------------------------------------------------------
+
+    // Remove person from DB method-----------------------------------------------------------------
+    private void removePerson() {
+        if (!TextUtils.isEmpty(textID.getText())) {
+            personID = textID.getText().toString();
+            sqLiteDatabase.execSQL("DELETE FROM " + tableName + " WHERE id = " + personID + ";");
+            textID.getText().clear();
+            Toast.makeText(this, "Person Removed", Toast.LENGTH_SHORT).show();
+            displayDB();
+        } else {
+            Toast.makeText(this, "Enter ID", Toast.LENGTH_SHORT).show();
         }
     }
     //----------------------------------------------------------------------------------------------
