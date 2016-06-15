@@ -16,18 +16,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    // SQL variables--------------------------------------------------------------------------------
-    private Cursor cursor;
+    // SQL variables & constants--------------------------------------------------------------------
     private SQLiteDatabase sqLiteDatabase = null;
-    private String databaseName = "SQL DB";
-    private String tableName = "sql";
-    private String name, email, phone, id, personsDetails;
-    private int nameColumn, emailColumn, phoneColumn, idColumn;
+    private final String databaseName = "SQL DB";
+    private final String tableName = "sql";
     //----------------------------------------------------------------------------------------------
 
     // Database variables---------------------------------------------------------------------------
     private List<String> list = new ArrayList<>();
-    private String personName, personEmail, personPhone, personID;
+    private String personID;
     //----------------------------------------------------------------------------------------------
 
     // TextViews variables--------------------------------------------------------------------------
@@ -218,21 +215,21 @@ public class MainActivity extends AppCompatActivity {
         //------------------------------------------------------------------------------------------
 
         // Selecting items from database------------------------------------------------------------
-        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + tableName, null);
-        idColumn = cursor.getColumnIndex("id");
-        nameColumn = cursor.getColumnIndex("name");
-        emailColumn = cursor.getColumnIndex("email");
-        phoneColumn = cursor.getColumnIndex("phone");
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + tableName, null);
+        int idColumn = cursor.getColumnIndex("id");
+        int nameColumn = cursor.getColumnIndex("name");
+        int emailColumn = cursor.getColumnIndex("email");
+        int phoneColumn = cursor.getColumnIndex("phone");
         cursor.moveToFirst();
 
         if (cursor.getCount() > 0) {
             do {
-                id = cursor.getString(idColumn);
-                name = cursor.getString(nameColumn);
-                email = cursor.getString(emailColumn);
-                phone = cursor.getString(phoneColumn);
+                String id = cursor.getString(idColumn);
+                String name = cursor.getString(nameColumn);
+                String email = cursor.getString(emailColumn);
+                String phone = cursor.getString(phoneColumn);
 
-                personsDetails = id + ". Name: " + name + "\n" + "     Email: " + email + "\n" + "     Phone: " +
+                String personsDetails = id + ". Name: " + name + "\n" + "     Email: " + email + "\n" + "     Phone: " +
                         phone + "\n" + "\n";
                 list.add(personsDetails);
             } while (cursor.moveToNext());
@@ -262,9 +259,9 @@ public class MainActivity extends AppCompatActivity {
     private void addPerson() {
         if (!TextUtils.isEmpty(textName.getText()) && !TextUtils.isEmpty(textEmail.getText())
                 && !TextUtils.isEmpty(textPhone.getText())) {
-            personName = textName.getText().toString();
-            personEmail = textEmail.getText().toString();
-            personPhone = textPhone.getText().toString();
+            String personName = textName.getText().toString();
+            String personEmail = textEmail.getText().toString();
+            String personPhone = textPhone.getText().toString();
             sqLiteDatabase.execSQL("INSERT INTO " + tableName + " (name, email, phone) VALUES ('" + personName + "', '" +
                     personEmail + "', '" + personPhone + "');");
             textName.getText().clear();
