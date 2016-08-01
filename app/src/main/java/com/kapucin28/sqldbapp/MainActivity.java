@@ -14,6 +14,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *      This is the main class where all of the actions
+ * will be performed
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     // SQL variables & constants--------------------------------------------------------------------
